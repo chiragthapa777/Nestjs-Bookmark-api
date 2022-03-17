@@ -1,5 +1,6 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { AuthDto } from './dto';//for validating client side data
 
 //auth is the prefix route(optaional but handly)
 @Controller('auth')
@@ -10,14 +11,15 @@ export class AuthController {
     //making the end points
     //auth/signup
     @Post('signup')
-    signup(){
-        //return your response and nest will automatically include the datatype 
-        return [{message:"hello world"}]
+    signup(@Body() dto:AuthDto){
+        //validating the client data
+        console.log(dto)
+        return this.authService.signup(dto)
     }
     //auth/signin
     @Post('signin')
-    signin(){
-        return "i am signup"
+    signin(@Body() dto:AuthDto){
+        return this.authService.login(dto)
     }
 
 }

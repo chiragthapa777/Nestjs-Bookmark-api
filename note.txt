@@ -1,0 +1,86 @@
+first install nest cli globally
+>npm i -g @nestjs/cli
+
+then create a project
+>nest new project-name
+
+now you will get the file structure 
+app.module.ts is the fmain file where you import your modules
+module are everything in nest
+module can be auth user notes db conenction anything
+
+make modules folders in src and then import it in app.module
+but you can use cli too
+
+to run and compile
+npm run start:dev ---> its like nodemon, handles chnages
+npm run start
+
+a dist folder willl be created by typescript
+
+using cli to make module folder
+>nest g module <foldername>
+
+//controller 
+responsible for handling res and req
+
+//service 
+handles the business logic
+
+making service and controller in auth folder mannually again which can be done from nest cli
+>nest g service <foldername> --no-spec
+
+we need @controller for controlller and injector for service
+while import to auth.module of auth
+controllers:[AuthController],
+providers:[AuthService]
+????how they work????===>
+controller will get request for the server then it will trigger one class from service and service will send back resposne to the controller and controller will send that response back to the server
+ now to goto controller and make endpoint
+ git::::: you can refer to commit message "first commit and controller endpoint basic"
+
+ 24 min 
+
+// servering the server methods inn the routes in the controller
+
+for connecting to postgress
+use prisma
+first install prisma
+npm install prisma typescript ts-node @types/node --save-dev
+init prisma
+npx prisma init
+write the schema  in prisma > schema.prsima
+then migrate the schema using 
+npx prisma migrate dev --name init
+now a db will be crated > you can see it in pgAdmin 4 server>posgresSQL 14> databases
+
+37min
+//now connecting the prisma and application
+nest g module prsima
+//@global decorator can be used to export module in global level
+//visual database bt > npx prsima studio
+
+1hr 3min
+
+
+//for authentication we will need
+>npm i @nestjs/passport passport @nestjs/jwt passport-jwt
+>npm i -dev @types/passport-jwt
+
+//dot env config in nest
+>npm i @nestjs/config
+config in the root module i.e, app.module.ts
+import ConfigModule.forRoot({ isGlobal:true }),
+
+//strategy
+>we can vaerify auth token in herder using the strategy folder in auth
+@Injectable()
+export class JwtSrategy extends PassportStrategy(Strategy,'jwt')
+
+//1.58 min guards
+
+//to protect route just getfor get post etc use decorator:@UseGuards(AuthGuard('jwt'))
+in which useguard is from nest/common and suthguard is from nest/passport
+
+// while requesting api request in herder do:
+Authorization: "Bearer jwtToken"
